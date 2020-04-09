@@ -1,7 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 import './App.css';
 
 function App() {
+  const [todoList, setTodoList] = useState([]);
+  const [activeItem, setActiveItem] = useState({id: null, title: '', completed:false});
+  const [editing, setEditing] = useState(false);
+
+  const fetchTasks = ()=>{
+    console.log('Fetching...');
+    fetch('/api/task-list/')
+    .then(response => response.json())
+    .then(data=> console.log(data));
+  };
+  
+  useEffect(()=>{
+    fetchTasks();
+  }, []);
+
   return (
     <div className="container">
         <div id="task-container">
