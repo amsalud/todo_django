@@ -1,7 +1,19 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
 # Create your views here.
+
+@api_view(['GET'])
 def apiOverview(request):
-    return JsonResponse("API BASE POINT", safe=False)
+    api_urls = {
+        'List': '/task-list',
+        'Detail View': '/task-detail/<str:id>/',
+        'Create': '/task-create',
+        'Update': '/task-update/<str:id>',
+        'Delete': '/task-delete/<str:id>'
+    }
+    return Response(api_urls)
 
