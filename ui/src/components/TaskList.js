@@ -14,7 +14,7 @@ export const TaskList = () => {
    
    useEffect(()=>{
        fetchTasks();
-   });
+   }, []);
 
 
     return (
