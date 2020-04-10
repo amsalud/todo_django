@@ -28,12 +28,20 @@ export const GlobalProvider = ({ children }) => {
         });
     };
 
+    const deleteTodoItem = (id) => {
+        dispatch({
+            type: 'DELETE_TODO_ITEM',
+            payload: id
+        });
+    };
+
     return (
     <GlobalContext.Provider value={
         {
             todoList: state.todoList,
             setTodoList,
-            addTodoItem
+            addTodoItem,
+            deleteTodoItem
         }
     }>
         {children}
