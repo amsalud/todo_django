@@ -1,13 +1,14 @@
-import React, { useState, useEffect} from 'react';
+import React, { useContext, useEffect } from 'react';
+import { GlobalProvider, GlobalContext } from './context/GlobalState';
 import './App.css';
 
 function App() {
-  const [todoList, setTodoList] = useState([]);
-  const [activeItem, setActiveItem] = useState({id: null, title: '', completed:false});
-  const [editing, setEditing] = useState(false);
+  // const [activeItem, setActiveItem] = useState({id: null, title: '', completed:false});
+  // const [editing, setEditing] = useState(false);
+
+  const { todoList, setTodoList } = useContext(GlobalContext);
 
   const fetchTasks = ()=>{
-    console.log('Fetching...');
     fetch('/api/task-list/')
     .then(response => response.json())
     .then(data=> setTodoList(data))
@@ -40,7 +41,7 @@ function App() {
 
                             <div onClick={() =>{}} style={{flex:7}}>
 
-                                {task.completed == false ? (
+                                {task.completed === false ? (
                                     <span>{task.title}</span>
 
                                   ) : (
