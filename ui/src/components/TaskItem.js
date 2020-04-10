@@ -2,7 +2,7 @@ import React, {useContext} from 'react'
 import { GlobalContext } from '../context/GlobalState';
 
 export const TaskItem = ({task}) => {
-    const {deleteTodoItem} = useContext(GlobalContext);
+    const {deleteTodoItem, editTodoItem} = useContext(GlobalContext);
 
     const onDelete = ()=>{
         const requestOptions = {
@@ -15,10 +15,29 @@ export const TaskItem = ({task}) => {
         .then(data=> deleteTodoItem(task.id))
         .catch(err=> console.log(err));
     };
+
+    const markComplete = () => {
+        const payload = {
+            id: task.id,
+            title: task.title,
+            completed: true
+        }
+
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        };
+
+        fetch(`/api/task-update/${task.id}`, requestOptions)
+        .then(response => response.json())
+        .then(data=> editTodoItem(data))
+        .catch(err=> console.log(err));
+    }
     return (
         <div className="task-wrapper flex-wrapper">
 
-        <div onClick={() =>{}} style={{flex:7}}>
+        <div onClick={markComplete} style={{flex:7}}>
 
             {task.completed === false ? (
                 <span>{task.title}</span>
