@@ -1,13 +1,13 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { GlobalContext } from '../context/GlobalState'
 
 export const TaskForm = () => {
+    const { addTodoItem, todoItemEditing, setTodoItemEditing, editTodoItem } = useContext(GlobalContext);
     const [task, setTask] = useState('');
-    const { addTodoItem } = useContext(GlobalContext);
+    const [editing, setEditing] = useState(false);
 
-    const onSubmit = (e)=>{
-        e.preventDefault();
 
+    const createTask = () => {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -18,9 +18,50 @@ export const TaskForm = () => {
         .then(response => response.json())
         .then(data=> addTodoItem(data))
         .catch(err=> console.log(err));
+    };
+
+    const editTask = () => {
+        const payload = {
+            id: todoItemEditing.id,
+            title: task,
+            completed: todoItemEditing.completed
+        }
+
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        };
+
+        fetch(`/api/task-update/${payload.id}`, requestOptions)
+        .then(response => response.json())
+        .then(data=>{ 
+            editTodoItem(data);
+            setTodoItemEditing(null);
+            setEditing(false);
+        })
+        .catch(err=> console.log(err));
+    };
+
+    const onSubmit = (e)=>{
+        e.preventDefault();
+
+        if(todoItemEditing){
+            editTask();
+        }
+        else{
+            createTask();
+        }
 
         setTask('');
     }
+
+    useEffect(()=>{
+        if(todoItemEditing && task === '' && !editing){
+            setTask(todoItemEditing.title);
+            setEditing(true);
+        }   
+    });
 
     return (
         <div id="form-wrapper">
