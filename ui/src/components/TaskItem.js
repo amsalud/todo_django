@@ -1,6 +1,20 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import { GlobalContext } from '../context/GlobalState';
 
 export const TaskItem = ({task}) => {
+    const {deleteTodoItem} = useContext(GlobalContext);
+
+    const onDelete = ()=>{
+        const requestOptions = {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' }
+        };
+
+        fetch(`/api/task-delete/${task.id}`, requestOptions)
+        .then(response => response.json())
+        .then(data=> deleteTodoItem(task.id))
+        .catch(err=> console.log(err));
+    };
     return (
         <div className="task-wrapper flex-wrapper">
 
@@ -21,7 +35,7 @@ export const TaskItem = ({task}) => {
         </div>
 
         <div style={{flex:1}}>
-            <button onClick={() => {}} className="btn btn-sm btn-outline-dark delete">-</button>
+            <button onClick={onDelete} className="btn btn-sm btn-outline-dark delete">-</button>
         </div>
 
       </div>
