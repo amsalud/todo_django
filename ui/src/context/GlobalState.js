@@ -35,13 +35,21 @@ export const GlobalProvider = ({ children }) => {
         });
     };
 
+    const editTodoItem = (item) => {
+        dispatch({
+            type: 'EDIT_TODO_ITEM',
+            payload: item
+        })
+    };
+
     return (
     <GlobalContext.Provider value={
         {
             todoList: state.todoList,
             setTodoList,
             addTodoItem,
-            deleteTodoItem
+            deleteTodoItem,
+            editTodoItem
         }
     }>
         {children}
