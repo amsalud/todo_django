@@ -24,6 +24,11 @@ export default (state, action) => {
                 state,
                 todoList: [...updatedTodoList]
             }
+        case 'SET_TODO_ITEM_EDITING':
+            return {
+                ...state,
+                todoItemEditing: action.payload
+            }
         default:
             return state;
     }
