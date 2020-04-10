@@ -11,6 +11,11 @@ export default (state, action) => {
                 ...state,
                 todoList: [...state.todoList, action.payload]
             }
+        case 'DELETE_TODO_ITEM':
+            return {
+                state,
+                todoList : state.todoList.filter((item)=> item.id !== action.payload)
+            }
         default:
             return state;
     }
