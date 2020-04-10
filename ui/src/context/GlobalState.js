@@ -18,14 +18,22 @@ export const GlobalProvider = ({ children }) => {
         dispatch({
             type: 'SET_TODO_LIST',
             payload: todoList
-        })
+        });
+    };
+
+    const addTodoItem = (item) => {
+        dispatch({
+            type: 'ADD_TODO_ITEM',
+            payload: item
+        });
     };
 
     return (
     <GlobalContext.Provider value={
         {
             todoList: state.todoList,
-            setTodoList
+            setTodoList,
+            addTodoItem
         }
     }>
         {children}
