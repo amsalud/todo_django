@@ -61,7 +61,7 @@ export const TaskForm = () => {
             setTask(todoItemEditing.title);
             setEditing(true);
         }   
-    });
+    }, [todoItemEditing, task, editing]);
 
     return (
         <div id="form-wrapper">
