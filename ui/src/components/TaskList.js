@@ -1,5 +1,6 @@
 import React, {useEffect, useContext} from 'react';
 import { GlobalContext } from '../context/GlobalState';
+import { TaskItem } from './TaskItem';
 
 export const TaskList = () => {
 
@@ -21,30 +22,8 @@ export const TaskList = () => {
         <div id="list-wrapper">
             {todoList.map(function(task, index){
                     return(
-                        <div key={index} className="task-wrapper flex-wrapper">
-
-                          <div onClick={() =>{}} style={{flex:7}}>
-
-                              {task.completed === false ? (
-                                  <span>{task.title}</span>
-
-                                ) : (
-
-                                  <strike>{task.title}</strike>
-                                )}
-
-                          </div>
-
-                          <div style={{flex:1}}>
-                              <button onClick={() => {}} className="btn btn-sm btn-outline-info">Edit</button>
-                          </div>
-
-                          <div style={{flex:1}}>
-                              <button onClick={() => {}} className="btn btn-sm btn-outline-dark delete">-</button>
-                          </div>
-
-                        </div>
-                      )
+                       <TaskItem task={task} key={index}/>
+                    )
             })}
         </div>
     )
