@@ -3,7 +3,8 @@ import AppReducer from './AppReducer';
 
 // InitalContext
 export const initialState = {
-    todoList : []
+    todoList : [],
+    todoItemEditing: null
 };
 
 // Create context
@@ -39,17 +40,26 @@ export const GlobalProvider = ({ children }) => {
         dispatch({
             type: 'EDIT_TODO_ITEM',
             payload: item
-        })
+        });
+    };
+
+    const setTodoItemEditing = (item) => {
+        dispatch({
+            type: 'SET_TODO_ITEM_EDITING',
+            payload: item
+        });
     };
 
     return (
     <GlobalContext.Provider value={
         {
             todoList: state.todoList,
+            todoItemEditing: state.todoItemEditing,
             setTodoList,
             addTodoItem,
             deleteTodoItem,
-            editTodoItem
+            editTodoItem,
+            setTodoItemEditing
         }
     }>
         {children}
