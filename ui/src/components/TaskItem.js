@@ -54,10 +54,11 @@ export const TaskItem = ({task}) => {
         </div>
 
         <div style={{flex:1}}>
-            <button onClick={() => { setTodoItemEditing(task)}} className="btn btn-sm btn-outline-info">Edit</button>
+            <button onClick={() => { setTodoItemEditing(task)}} disabled={task.completed} className="btn btn-sm btn-outline-info">Edit</button>
         </div>
 
         <div style={{flex:1}}>
+
             <button onClick={onDelete} className="btn btn-sm btn-outline-dark delete">-</button>
         </div>
 
