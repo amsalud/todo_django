@@ -17,6 +17,10 @@ export const TaskItem = ({task}) => {
     };
 
     const markComplete = () => {
+        if(task.completed){
+            return;
+        }
+
         const payload = {
             id: task.id,
             title: task.title,
